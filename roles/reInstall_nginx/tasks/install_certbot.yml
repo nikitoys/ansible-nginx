@@ -1,0 +1,27 @@
+- name: Install certbot
+  ansible.builtin.shell: snap install --classic certbot
+  register: debug_snap_install
+    
+- debug: msg={{debug_snap_install.stderr}}
+  
+- name: Recreate ln certbot   
+  ansible.builtin.file:
+    src: /snap/bin/certbot
+    dest: /usr/bin/certbot
+    state: link  
+  register: debug_ln
+    
+- debug: var=debug_ln
+  when: debug_ln.failed
+  
+- name: Check if certbot account is registered
+  ansible.builtin.shell: certbot show_account | grep Email | awk '{print $3}'
+  register: certbot_account_info
+  ignore_errors: yes
+  
+  
+- name: Register certbot email
+  ansible.builtin.shell: |
+    echo Y | certbot register --email {{ email_register }} 
+  register: debug_certbot_email
+  when: certbot_account_info.stdout != email_register 

@@ -1,0 +1,23 @@
+---
+
+- name: Uninstall nginx
+  hosts: other
+  become: yes
+
+  vars:
+    index_file: ~/webSite
+    destin_file: /var/www/html
+    ansible_sudo_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38323561623432653761383937336534363632613663356662306531666434333662306532353236
+          3533363763383233646563346530623537633366366138390a363265633538626133336362316436
+          33626535333265623238623835626561333866343939316636386363383063656461663664643130
+          6635323663626336300a333039393735663338396661323438353739303831303639633663653935
+          6430
+
+  tasks:
+    - name: Uninstall nginx
+      apt: name=nginx state=absent
+
+    - name: delete file
+      file: state=absent path={{destin_file}}/index.html

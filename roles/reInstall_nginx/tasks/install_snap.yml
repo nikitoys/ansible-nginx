@@ -1,0 +1,8 @@
+- name: Install snap
+  apt: name=snapd
+  
+- name: Install core snap
+  ansible.builtin.shell: snap install core
+  register: install_core_snap
+  
+- debug: msg={{install_core_snap.stderr}}

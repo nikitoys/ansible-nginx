@@ -1,0 +1,16 @@
+- name: Check certbot_certificates
+  ansible.builtin.shell: certbot certificates | grep Name | awk '{print $3}'
+  register: certbot_certificates
+
+- name: Check hostname_certificates  
+  ansible.builtin.shell: hostname
+  register: hostname_certificates
+
+- name: Install nginx sertificates
+  ansible.builtin.shell: |
+    echo "nikitoyss.ru" | certbot --nginx
+  register: debug_nginx_sertificates
+  when: certbot_certificates.stdout != hostname_certificates.stdout
+
+- debug: var=debug_nginx_sertificates
+  when: debug_nginx_sertificates.skipped == false

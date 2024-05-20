@@ -1,0 +1,7 @@
+---
+# defaults file for reInstall_nginx
+destin_file: /var/www/html
+installing_sertificates: true
+remove_nginx: true
+reboot_servers: false
+email_register: 

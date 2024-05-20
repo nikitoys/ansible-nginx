@@ -1,0 +1,3 @@
+---
+# vars file for remove_nginx
+    destin_file: /var/www/html

@@ -1,0 +1,18 @@
+# inventory 
+[hosts:children]
+local
+other
+
+[local]
+debian1 ansible_connection=local
+
+[other]
+debian2 ansible_host=debian2
+debian3 ansible_host=192.168.1.103
+
+[vps]
+nikitoyss.ru ansible_host=185.198.152.124
+
+[other:vars]
+ansible_user=user
+

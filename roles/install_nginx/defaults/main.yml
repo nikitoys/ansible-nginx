@@ -1,0 +1,3 @@
+---
+# defaults file for nginx_role
+destin_file: /var/www/html

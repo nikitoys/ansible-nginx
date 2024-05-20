@@ -1,0 +1,7 @@
+---
+# tasks file for nginx_role
+    - name: Install nginx
+      apt: name=nginx
+
+    - name: Copy file
+      template: src=index.html dest={{destin_file}}/index.html

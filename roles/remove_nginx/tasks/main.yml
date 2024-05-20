@@ -1,0 +1,7 @@
+---
+# tasks file for remove_nginx
+    - name: Uninstall nginx
+      apt: name=nginx state=absent
+
+    - name: delete file
+      file: state=absent path={{destin_file}}/index.html

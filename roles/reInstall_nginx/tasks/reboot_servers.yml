@@ -1,0 +1,12 @@
+    - name: Reboot servers
+      shell: sleep 3 & reboot now
+      async: 1
+      poll: 0
+
+    - name: Wait start
+      wait_for: 
+        host: "{{ ansible_nodename }}"
+        state: started
+        delay: 5
+        timeout: 40
+      delegate_to: 127.0.0.1

@@ -1,0 +1,17 @@
+---
+# tasks file for reInstall_nginx
+- import_tasks: remove_nginx.yml
+  when: remove_nginx
+- import_tasks: install_nginx.yml
+
+
+- name: Install nginx sertificates
+  block:
+    - import_tasks: install_snap.yml
+    - import_tasks: install_certbot.yml
+    - import_tasks: install_nginx_sertificates.yml
+  
+  when: installing_sertificates
+  
+- import_tasks: reboot_servers.yml
+  when: reboot_servers
